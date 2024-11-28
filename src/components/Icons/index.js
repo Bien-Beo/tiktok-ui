@@ -1,1 +1,1 @@
-export {SearchIcon, MessengerIcon} from './Icons'
+export * from './Icons'
