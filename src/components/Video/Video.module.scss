@@ -1,0 +1,11 @@
+.wrapper {
+    position: relative;
+}
+
+.video-item {
+    border-radius: 12px;
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
