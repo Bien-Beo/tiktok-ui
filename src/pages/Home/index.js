@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
-import VideoList from "./VideoList";
+import React, { useEffect, useState } from 'react';
+import VideoList from '~/components/Video/VideoList';
 
 function Home() {
-    const API_KEY = "AIzaSyAgslhYG3DZFF2I9gksBxQGlQXnbA2VbmY";
-    const [videos, setVideos] = useState([]); 
+    const API_KEY = 'AIzaSyAgslhYG3DZFF2I9gksBxQGlQXnbA2VbmY';
+    const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchVideos() {
             try {
-                const response = await fetch(`https://www.googleapis.com/youtube/v3/search?q=shorts&type=video&part=snippet&maxResults=5&key=${API_KEY}`);
+                const response = await fetch(
+                    `https://www.googleapis.com/youtube/v3/search?q=shorts&type=video&part=snippet&maxResults=5&key=${API_KEY}`,
+                );
+                if (!response.ok) {
+                    throw new Error('Failed to fetch videos');
+                }
                 const data = await response.json();
-                setVideos(data.items); // Gán dữ liệu cho videos
+                setVideos(data.items || []);
             } catch (error) {
-                console.error("Error fetching videos:", error);
+                console.error('Error fetching videos:', error);
+                setVideos([]);
             } finally {
                 setLoading(false);
             }
@@ -23,33 +29,16 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="loading">
+                <span>Loading videos...</span>
+                <div className="spinner"></div>
+            </div>
+        );
     }
+    
 
     return <VideoList videos={videos} />;
 }
 
 export default Home;
-
-// import React, { useState, useEffect } from "react";
-// import VideoList from "./VideoList";
-
-// function Home() {
-//     const API_KEY = "AIzaSyAgslhYG3DZFF2I9gksBxQGlQXnbA2VbmY";
-//     const [videos, setVideos] = useState([]);
-
-//     useEffect(() => {
-//         const fetchShorts = async () => {
-//             const url = `https://www.googleapis.com/youtube/v3/search?q=shorts&type=video&part=snippet&maxResults=5&key=${API_KEY}`;
-//             const response = await fetch(url);
-//             const data = await response.json();
-//             setVideos(data.items);
-//         };
-
-//         fetchShorts();
-//     }, []);
-
-//     return <VideoList videos={videos} />;
-// }
-
-// export default Home;

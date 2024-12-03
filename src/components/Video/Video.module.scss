@@ -1,11 +1,22 @@
+.videoList {
+    display: flex;
+    flex-direction: column; 
+    gap: 24px;
+    padding: 20px;
+}
+
+
 .wrapper {
     position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    margin-bottom: 20px; 
 }
 
 .video-item {
     border-radius: 12px;
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 520px; 
+    height: 900px; 
+    max-width: 100%;
 }
